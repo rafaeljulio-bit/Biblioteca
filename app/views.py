@@ -2,7 +2,7 @@ from pyexpat.errors import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.views import View
-
+from .forms import LivroForm
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
@@ -54,7 +54,7 @@ class GenerosView(View):
     
 class DeleteLivroView(View):
     def get(self, request, id, *args, **kwargs):
-        livro = livro.objects.get(id=id)
+        livro = Livro.objects.get(id=id)
         livro.delete()
         messages.success(request, 'Livro excluido com sucesso!') #Success message
         return redirect ('livros')

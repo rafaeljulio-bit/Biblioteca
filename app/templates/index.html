@@ -57,9 +57,43 @@
             <p class="lead">Seja bem vindo(A)</p>
         </div>
     </div>
+    <tbody>
+        {% for livros in livros %}
+        <tr>
+            <td>{{ livros.nome }}</td>
+            <td>{{ livros.autor }}</td>
+            <td>{{ livros.editora }}</td>
+            <td>
+                {% for genero in livros.genero.all %}
+                {{genero.nome }} {% if not forloop.last %},
+                {% endif %}
+                {% endfor %}
+            </td>
+            <td>{{ livros.preço }}</td>
+            <td>{{ livros.data_plub }}</td>
+            <td>{{ livros.status }}</td>
+            <td><a href="delete/{{ livros.id }}" class="btn btb-danger">Excluir</a> </td>
+            <td><a href="editar/{{ livros.id }}" class="btn btn=warning">Editar</a> </td>
+        </tr>
+        {% endfor %}
+    </tbody>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Editora</th>
+                <th scope="col">Gênero</th>
+                <th scope="col">Preço</th>
+                <th scope="col">Data Publicação</th>
+                <th scope="col">Status</th>
+                <th scope="col">Excluir</th>
+                <th scope="col">Editar</th>
+            </tr>
+        </thead>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
