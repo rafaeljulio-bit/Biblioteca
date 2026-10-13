@@ -1,4 +1,4 @@
-from pyexpat.errors import messages
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.views import View
@@ -6,7 +6,8 @@ from .forms import LivroForm
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'index.html')
+        livros = Livro.objects.all()
+        return render(request, 'index.html', {'livros': livros})
 
 
 class LivrosView(View):
@@ -58,4 +59,30 @@ class DeleteLivroView(View):
         livro.delete()
         messages.success(request, 'Livro excluido com sucesso!') #Success message
         return redirect ('livros')
+
+class EditarLivroView(View):
+      template_name = 'editar_livro.html'
+    
+def get(self, request, id, *args, **kwargs):
+        livro = get_object_or_404(Livro, id=id)
+        form = LivroForm(instance=livro)
+        return render(request, self.template_name, {
+            'livro': livro,
+            'form': form
+        })
+
+def post(self, request, id, *args, **kwargs):
+        livro = get_object_or_404(Livro, id=id)
+        form = LivroForm(request.POST, instance=livro)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'As edições foram salvas com sucesso.')
+            return redirect('editar', id=id)
+
+        messages.error(request, 'Corrija os erros no formulário.')
+        return render(request, self.template_name, {
+            'livro': livro,
+            'form': form
+        })
     

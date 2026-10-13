@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <nav class="navbar navbar-expand navbar-dark bg-success">
         <a class="navbar-brand" href="/">Biblioteca</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,43 +57,48 @@
             <p class="lead">Seja bem vindo(A)</p>
         </div>
     </div>
-    <tbody>
-        {% for livros in livros %}
-        <tr>
-            <td>{{ livros.nome }}</td>
-            <td>{{ livros.autor }}</td>
-            <td>{{ livros.editora }}</td>
-            <td>
-                {% for genero in livros.genero.all %}
-                {{genero.nome }} {% if not forloop.last %},
-                {% endif %}
-                {% endfor %}
-            </td>
-            <td>{{ livros.preço }}</td>
-            <td>{{ livros.data_plub }}</td>
-            <td>{{ livros.status }}</td>
-            <td><a href="delete/{{ livros.id }}" class="btn btb-danger">Excluir</a> </td>
-            <td><a href="editar/{{ livros.id }}" class="btn btn=warning">Editar</a> </td>
-        </tr>
-        {% endfor %}
-    </tbody>
 
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">Autor</th>
-                <th scope="col">Editora</th>
-                <th scope="col">Gênero</th>
-                <th scope="col">Preço</th>
-                <th scope="col">Data Publicação</th>
-                <th scope="col">Status</th>
-                <th scope="col">Excluir</th>
-                <th scope="col">Editar</th>
+                <th>Nome</th>
+                <th>Autor</th>
+                <th>Editora</th>
+                <th>Gênero</th>
+                <th>Preço</th>
+                <th>Data Publicação</th>
+                <th>Status</th>
+                <th>Excluir</th>
+                <th>Editar</th>
             </tr>
         </thead>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <tbody>
+            {% for livro in livros %}
+            <tr>
+                <td>{{ livro.nome }}</td>
+                <td>{{ livro.autor }}</td>
+                <td>{{ livro.editora }}</td>
+                <td>
+                    {% for genero in livro.genero.all %}
+                    {{ genero.nome }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>{{ livro.preço }}</td>
+                <td>{{ livro.data_plub }}</td>
+                <td>{{ livro.status }}</td>
+                <td><a href="/delete/{{ livro.id }}" class="btn btn-danger">Excluir</a></td>
+                <td><a href="/editar/{{ livro.id }}" class="btn btn-warning">Editar</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="9">Nenhum livro cadastrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
