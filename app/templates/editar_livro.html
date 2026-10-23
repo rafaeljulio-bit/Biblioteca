@@ -31,19 +31,18 @@ necessário -->
         <p>Autor: {{ livro.autor }}</p>
         <p>Editora: {{ livro.editora }}</p>
         <p>Gênero: {% for genero in livro.genero.all %}{{
-            genero.nome }}{% if not forloop.last %}, {% endif %}{% endfor
-            %}</p>
+            genero.nome }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
         <p>Preço: R$ {{ livro.preco }}</p>
         <p>Data de Publicação: {{ livro.data_plub }}</p>
         <p>Status: {{ livro.status }}</p>
 
         <h3 class="mt-4">Editar Livro</h3>
+
         {% if messages %}
         <ul class="messages">
             {% for message in messages %}
             <b>
-                <li{% if message.tags %} class="{{ message.tags
-}}" {% endif %} style="color: red;">{{ message }}</li>
+                <li{% if message.tags %} class="{{ message.tags }}" {% endif %} style="color: red;">{{ message }}</li>
             </b>
             {% endfor %}
         </ul>
@@ -52,8 +51,7 @@ necessário -->
         <form method="post">
             {% csrf_token %}
             {{ form|crispy }}
-            <button type="submit" class="btn btn-success btn-block
-btn-lg mt-2">Salvar Edições do Livro</button>
+            <button type="submit" class="btn btn-success btn-block btn-lg mt-2">Salvar Edições do Livro</button>
         </form>
         <br>
     </div>

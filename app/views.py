@@ -63,15 +63,16 @@ class DeleteLivroView(View):
 class EditarLivroView(View):
       template_name = 'editar_livro.html'
     
-def get(self, request, id, *args, **kwargs):
+      def get(self, request, id, *args, **kwargs):
         livro = get_object_or_404(Livro, id=id)
         form = LivroForm(instance=livro)
+        
         return render(request, self.template_name, {
             'livro': livro,
             'form': form
         })
 
-def post(self, request, id, *args, **kwargs):
+      def post(self, request, id, *args, **kwargs):
         livro = get_object_or_404(Livro, id=id)
         form = LivroForm(request.POST, instance=livro)
 
@@ -81,6 +82,7 @@ def post(self, request, id, *args, **kwargs):
             return redirect('editar', id=id)
 
         messages.error(request, 'Corrija os erros no formulário.')
+        
         return render(request, self.template_name, {
             'livro': livro,
             'form': form
